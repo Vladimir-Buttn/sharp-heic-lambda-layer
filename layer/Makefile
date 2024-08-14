@@ -90,6 +90,7 @@ installLib:
 		libtiff-devel \
 		lcms2-devel \
 		gobject-introspection-devel \
+		libaom-devel \
 		cmake \
 		nasm \
 		pkg-config \
