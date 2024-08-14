@@ -50,10 +50,10 @@ x265:
 	curl -L https://bitbucket.org/multicoreware/x265_git/downloads/x265_$(X265_VERSION).tar.gz | tar zx
 	cd x265_$(X265_VERSION) && cd build/linux && cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$(PREFIX_PATH) ../../source && make && make install
 
-# libaom:
-# 	# libaom
-# 	curl -L https://storage.googleapis.com/aom-releases/libaom-${LIBAOM_VERSION}.tar.gz | tar zx
-# 	cd libaom-${LIBAOM_VERSION} && cd build && cmake -DCONFIG_AV1_ENCODER=0 -DBUILD_SHARED_LIBS=1 -DENABLE_TESTS=0 -DENABLE_DOCS=0 -DCMAKE_INSTALL_PREFIX=${PREFIX_PATH} -DCMAKE_INSTALL_LIBDIR=${LIB_PATH}/lib .. && make V=0 && make install
+libaom:
+	# libaom
+	curl -L https://storage.googleapis.com/aom-releases/libaom-${LIBAOM_VERSION}.tar.gz | tar zx
+	cd libaom-${LIBAOM_VERSION} && cd build && cmake -DCONFIG_AV1_ENCODER=0 -DBUILD_SHARED_LIBS=1 -DENABLE_TESTS=0 -DENABLE_DOCS=0 -DCMAKE_INSTALL_PREFIX=${PREFIX_PATH} -DCMAKE_INSTALL_LIBDIR=${LIB_PATH}/lib .. && make V=0 && make install
 
 libheif: x265 libde265
 	# libheif
@@ -63,7 +63,7 @@ libheif: x265 libde265
 libvips: installLib libheif libwebp
 	# libvips
 	curl -L https://github.com/libvips/libvips/releases/download/v$(VIPS_VERSION)/vips-$(VIPS_VERSION).tar.xz | tar xJ
-	cd vips-$(VIPS_VERSION) && meson setup build --prefix ${PREFIX_PATH} --libdir ${LIB_PATH} -Dheif=enabled -Dheif-module=disabled -Dlcms=enabled --buildtype release && cd build && meson compile && meson install
+	cd vips-$(VIPS_VERSION) && meson setup build --prefix ${PREFIX_PATH} --libdir ${LIB_PATH} -Dheif=enabled -Dheif-module=enabled -Dlcms=enabled --buildtype release && cd build && meson compile && meson install
 
 # libheif: libde265
 # 	# libheif
